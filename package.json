@@ -1,0 +1,19 @@
+{
+  "name": "learning-projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vijaykumar-queventix/learning-projects.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vijaykumar-queventix/learning-projects/issues"
+  },
+  "homepage": "https://github.com/vijaykumar-queventix/learning-projects#readme"
+}
