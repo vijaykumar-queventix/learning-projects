@@ -1,18 +1,27 @@
-const http = require('http');
-const port = 3000;
+var http = require('http');
+var uhtml = 
+'<html><head><title>Post Example</title></head>' +
+'<body>' +
+'<p>Input your name and Address</p>'+
+'<form method="post">' +
+'Name : <input name="name" size=20><br>' +
+'Address : <input name="address" size=50><br>' +
+'<input type="submit">' +
+'</form>' +
+'</body></html>';
 
-// creating server
-http.createServer((req, res)=>{
-    const html = buildHtml(req);
+http.createServer(function (req, res) {
+var body = "";
 
-    res.writeHead(200, {'content-type': 'text/html'});
-    res.end(html);
-}).listen(port, ()=>{
-    console.log(`server running on ${port}`);
+// reading from body data
+req.on('data', function (chunk) {
+body += chunk;
 });
 
-function buildHtml(req){
-    var header ="";
-    var body = '<h1>Node js generating first html</h1>';
-    return '<!DOCTYPE html>' + '<html><header>' + header + '</header><body>' + body + '</body></html>'
-}
+
+req.on('end', function () {
+console.log('POSTed: ' + body);
+res.writeHead(200);
+res.end(uhtml);
+});
+}).listen(3000);
