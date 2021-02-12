@@ -1,26 +1,39 @@
-// callback hell
+//promises
 
-addition(2, (addData,err)=>{
-    if(!err) {
-        Subtract(addData, (subData, err)=>{
-        if(!err) {
-            multiplication(subData,(multData, err)=>{
-                if(!err){
-                    console.log(multData);
-                }
-        });
-       
-    }
-    });
+function addition(val){
+return (val+5);
 }
+function Subtract(val){
+return (val-3);
+}
+function multiplication(val){
+return (val*5);
+}
+
+var promise = new Promise((resolve, reject)=>{ + 
+    resolve(5);
+    reject("error");
 });
 
-function addition(val,callback){
-callback(val+5);
-}
-function Subtract(val,callback){
-callback(val-3);
-}
-function multiplication(val,callback){
-callback(val*5);
-}
+
+promise.then((value)=>{
+    var  a =  addition(value);
+    console.log(`value come from addtion :  ` + a);
+    return a;
+})
+.then((a)=>{
+    var b = Subtract(a)
+    console.log(`Value comes from subtract : ${b}`)
+    return b;
+})
+.then((b)=>{
+    let c = multiplication(b)
+    console.log(`Value come from multplication : ${c}`);
+    return (msg=c);
+})
+.then((msg)=>{
+    console.log(`The final output is ${msg}`)
+})
+.catch((err)=>{
+    console.log(err);
+})
