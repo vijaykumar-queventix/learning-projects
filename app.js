@@ -1,29 +1,27 @@
-// reading from a stream
+// writing to a stream
 
 const fs = require('fs');
-let data = "";
+const data = "It is simply leaning";
 
-// creating reading stream
-let readerStream = fs.createReadStream('test.txt');
-//console.log(readerStream);
+// creating writeable stream
+let writereStream = fs.createWriteStream('output.txt');         // creating empty output.txt file
 
-// set encoding to be utf-8
-readerStream.setEncoding('utf-8');
+// write the data to stream with encoding to be utf-8
+writereStream.write(data, 'utf-8');
 
-// handle stream events data, end and error 
+// handling finish and error event
+writereStream.on('finish', ()=>{
+    console.log(`Task is completed :
+content of data written in output.txt`)
+})
 
-readerStream.on('data', (chunk)=>{
-    data+=chunk;
+
+writereStream.on('error', (error)=>{
+    console.log(error);
 });
 
-
-readerStream.on('end', ()=>{
-    console.log(data);
-});
-
-readerStream.on('error', (error)=>{
-    console.log(`ERROR : ${error}`)
-});
+// mark the end of file
+writereStream.end();
 
 
-console.log('Program end');
+console.log('program ended');
