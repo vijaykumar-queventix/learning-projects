@@ -18,7 +18,7 @@ var promise = new Promise((resolve, reject)=>{ +
 
 promise.then((value)=>{
     var  a =  addition(value);
-    console.log(`value come from addtion :  ` + a);
+    console.log(`value come from addtion : ${a}`);
     return a;
 })
 .then((a)=>{
