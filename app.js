@@ -1,34 +1,44 @@
-// working with async
-const fs = require('fs');
-const { resolve } = require('path');
-let obj = {};
+// creates an empty buffer of lenth 15
+var buff = Buffer.alloc(15)
+console.log(buff);
 
-const doA = ()=>{
-    return new Promise((reslove, reject)=>{
-        fs.readFile('test.txt', 'utf-8', (err, data)=>{
-            if(err) throw err;
-            reslove(data.toString());
-    
-        })
-    })
-    
-}
+// convert string into binary data
+const b = Buffer.from('abc');
+console.log(b);
 
-const doB = ()=>{
-    return new Promise((resolve, reject)=>{
-        fs.readFile('test2.txt', 'utf-8', (err, data)=>{
-            if(err) throw err;
-            resolve (data.toString());
-        })
-    })
-   
-}
+const b1 = Buffer.from('abcd');
+console.log(b1);
 
-async function main (){
-    obj.data1 = await doA();
-    obj.data2 = await doB();
-    console.log(obj)
+// creates buffer of 10 byte
+const c = Buffer.allocUnsafe(10);
+console.log(c);
 
-};
 
-main();
+// it compares two buffers and return
+// 0 if equal
+// 1 if first buffer is higher than second buffer
+// -1 if first buffer is lower than second buffer
+const b3 = Buffer.compare(b, b1);
+console.log(b3);
+
+// joins array buffer in single buffer
+const arr = [b, b1]
+const combinedbuff = Buffer.concat(arr);
+console.log(combinedbuff);
+
+
+// data encoding
+let originalString = 'this is original string';
+let buffobj = Buffer.from(originalString);
+console.log(buffobj);
+
+let base64String = buffobj.toString('base64');
+console.log(`This is encoded base64 string is : ${base64String}`);
+
+let utf8String = buffobj.toString('utf-8');
+console.log(`This is encoded utf-8 string : ${utf8String}`);
+
+let hexString = buffobj.toString('hex');
+console.log(`This is encoding hex string is : ${hexString}`);
+
+
