@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vijaykumar-queventix/learning-projects/issues"
   },
-  "homepage": "https://github.com/vijaykumar-queventix/learning-projects#readme"
+  "homepage": "https://github.com/vijaykumar-queventix/learning-projects#readme",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
