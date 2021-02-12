@@ -1,10 +1,26 @@
-var fs = require('fs');
+// callback hell
 
-console.log('first console output');
-
-fs.readFile('test.txt', (err, data)=>{
-    if(err) throw err;
-    console.log(`The data is comming from test.txt is : ${data}`);
+addition(2, (addData,err)=>{
+    if(!err) {
+        Subtract(addData, (subData, err)=>{
+        if(!err) {
+            multiplication(subData,(multData, err)=>{
+                if(!err){
+                    console.log(multData);
+                }
+        });
+       
+    }
+    });
+}
 });
 
-console.log('This is last console output');
+function addition(val,callback){
+callback(val+5);
+}
+function Subtract(val,callback){
+callback(val-3);
+}
+function multiplication(val,callback){
+callback(val*5);
+}
