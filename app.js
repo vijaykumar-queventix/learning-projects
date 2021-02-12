@@ -1,8 +1,10 @@
-var http = require('http');
+var fs = require('fs');
 
-var url = "http://www.google.com";
-http.get(url, (res)=>{
-    console.log(`Got response  : ${res.statusCode}`);
-}).on('error', (e)=>{
-    console.log(`Got error : ${e.message}`);
+console.log('first console output');
+
+fs.readFile('test.txt', (err, data)=>{
+    if(err) throw err;
+    console.log(`The data is comming from test.txt is : ${data}`);
 });
+
+console.log('This is last console output');
