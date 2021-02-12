@@ -1,13 +1,12 @@
-// chaning the stream
-// compressing the stream and creating new .gz file
+// decompressing the stream
 
 const fs = require('fs');
 const zlib = require('zlib');
 
-// compress the input.txt file to input.txt.gz
+// decompress the input.txt.gz file to input.txt
 
-const readerStream = fs.createReadStream('input.txt')
-.pipe(zlib.createGzip())
-.pipe(fs.createWriteStream('input.txt.gz'))
+const readerStream = fs.createReadStream('input.txt.gz')
+.pipe(zlib.createGunzip())
+.pipe(fs.createWriteStream('input.txt'));
 
-console.log(`file compressed`);
+console.log('File decompressed');
