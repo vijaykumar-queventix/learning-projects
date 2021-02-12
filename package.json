@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vijaykumar-queventix/learning-projects#readme",
   "dependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "sync": "^0.2.5"
   }
 }

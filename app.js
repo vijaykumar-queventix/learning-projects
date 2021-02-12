@@ -1,39 +1,34 @@
-//promises
+// working with async
+const fs = require('fs');
+const { resolve } = require('path');
+let obj = {};
 
-function addition(val){
-return (val+5);
+const doA = ()=>{
+    return new Promise((reslove, reject)=>{
+        fs.readFile('test.txt', 'utf-8', (err, data)=>{
+            if(err) throw err;
+            reslove(data.toString());
+    
+        })
+    })
+    
 }
-function Subtract(val){
-return (val-3);
+
+const doB = ()=>{
+    return new Promise((resolve, reject)=>{
+        fs.readFile('test2.txt', 'utf-8', (err, data)=>{
+            if(err) throw err;
+            resolve (data.toString());
+        })
+    })
+   
 }
-function multiplication(val){
-return (val*5);
-}
 
-var promise = new Promise((resolve, reject)=>{ + 
-    resolve(5);
-    reject("error");
-});
+async function main (){
+    obj.data1 = await doA();
+    obj.data2 = await doB();
+    console.log(obj)
 
+};
 
-promise.then((value)=>{
-    var  a =  addition(value);
-    console.log(`value come from addtion : ${a}`);
-    return a;
-})
-.then((a)=>{
-    var b = Subtract(a)
-    console.log(`Value comes from subtract : ${b}`)
-    return b;
-})
-.then((b)=>{
-    let c = multiplication(b)
-    console.log(`Value come from multplication : ${c}`);
-    return (msg=c);
-})
-.then((msg)=>{
-    console.log(`The final output is ${msg}`)
-})
-.catch((err)=>{
-    console.log(err);
-})
+main();
