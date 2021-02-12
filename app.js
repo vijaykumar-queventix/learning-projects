@@ -26,10 +26,11 @@ const arr = [b, b1]
 const combinedbuff = Buffer.concat(arr);
 console.log(combinedbuff);
 
+console.log('<-------------------------------------------->');
 
 // data encoding
 let originalString = 'this is original string';
-let buffobj = Buffer.from(originalString);
+let buffobj = Buffer.from(originalString, 'utf-8');
 console.log(buffobj);
 
 let base64String = buffobj.toString('base64');
@@ -40,5 +41,15 @@ console.log(`This is encoded utf-8 string : ${utf8String}`);
 
 let hexString = buffobj.toString('hex');
 console.log(`This is encoding hex string is : ${hexString}`);
+
+
+
+console.log('<-------------------------------------------->');
+
+// decoding hex string to utf-8 string
+let hexbuffObj = Buffer.from(hexString, 'hex');           // converting hexstring to buffer object
+let decodedString = hexbuffObj.toString('utf-8');       // decoding
+
+console.log(`This is decoding hex string to utf-8 string : ${decodedString}`);
 
 
