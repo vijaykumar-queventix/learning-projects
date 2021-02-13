@@ -1,35 +1,43 @@
-// Default parametes
+// Spread Operator
 
-// Es5
+var ArrayValues = [1,2,4,2,5,1,4];
+var array2 = [4,4,"a","s"];
 
-const Arrowfunction = (parameter1,parameter2)=>{
-    parameter2 = (typeof(parameter2) !== "undefined") ? parameter2 : 20 ;       // difind value of parameter2 is 20 if not defined on calling function
-    let c = parameter1+ parameter2;
-    console.log(c);
+const sum = (a,b,c)=>{
+    let total = a+b+c;
+    console.log(total)
 }
+console.log(...ArrayValues);        // returns array values only
 
-Arrowfunction(2);
+sum(...ArrayValues);        // it will assign values of Array as an parameter in sum function
 
-// Es6
+sum();
 
-const Defultfunction = (parameter1,parameter2=20)=>{            // difind value of parameter2 is 20 if not defined on calling function
-    let c = parameter1+ parameter2;
-    console.log(c);
-}
 
-Defultfunction(4);
+// spread operator also replaces concat function
 
-// rest parameters 
+ArrayValues = [...ArrayValues, array2];         // ES6 Way
+console.log(ArrayValues);
 
-const sum = (...inputs)=>{                      // converts the arguments in an array 
-    let total = 0;
-    for(let i of inputs){
-        total += i; 
-        //console.log(total);
-    }
-    console.log(inputs);
-    console.log(total);
-}
+ArrayValues = ArrayValues.concat(array2);           // ES5 Way
+console.log(ArrayValues);
 
-sum(1,2,4,5,8,6);               // we can give infinte no. of arguments 
-sum(1,2,4,5,8,6,5,7,8,4,7);  
+// spread operator also replaces copy function
+
+let arrc1 = [1,2,1];            // Esc 5 way
+let arrc2 = arrc1;
+console.log(arrc1);
+console.log(arrc2);
+
+arrc2.push('20',5,8);               // this will also push in arrc1
+console.log(arrc2);                 
+console.log(arrc1);
+
+
+// ES6 way
+
+let arr1 = [1,5,2];
+let arr2 = [...arr1, 5, 5];              // this will add values only in arr2
+console.log(arr1);
+console.log(arr2);
+console.log(typeof(arr2));
