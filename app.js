@@ -1,25 +1,28 @@
-// object destructing
+// Arrow fucntion 
 
-const bioData = {
-    name : "demo",
-    age : 20,
-    degree : 'Msc',
-    hobbies :{
-        first : 'playing',
-        second : 'learning'
-    }
+// old way of defing funciton
+function name(parameter1, parameter2){
+   let c = parameter1+ parameter2;
+   console.log(c);
+}
+name(5,10);
+
+
+// or
+
+var addtion = function(parameter1, parameter2){
+    let c = parameter1+ parameter2;
+    console.log(c);
+ }
+ addtion(5,46);
+
+
+
+// arrow function
+
+const Arrowfunction = (parameter1,parameter2)=>{
+    let c = parameter1+ parameter2;
+    console.log(c);
 }
 
-let{name, age, degree} = bioData;       // variable can be same as in object
-
-let{name:myname, age:myage} = bioData   // here we can change variable names seprated by :
-
-let {first, second} = bioData.hobbies;     // object from object    
-
-console.log(`Hi my name is ${name}, My age is ${age}, And my highest qualification is ${degree}`);
-console.log(`Hi my name is ${myname}, My age is ${myage}, And my highest qualification is ${degree}`);
-console.log(name);
-console.log(age);
-
-console.log(first);
-console.log(second);
+Arrowfunction(2, 4);
