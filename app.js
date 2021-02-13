@@ -1,6 +1,14 @@
-// Math object
+// ES7 (ECMAScript 2016)
 
-let number = 5.455;
+let Names = ['demo1','demo2','demo3','demo4','demo5','demo6']
 
-console.log(Math.sign(number));     // returns 1 if number is positive and -1 if negative
-console.log(Math.trunc(number));        // return number before the decimal
+console.log(Names.includes('demo3'));           // return true if demo3 exist in names array
+
+// Exponentiation operator
+
+let a = 2**5;               // this means 2*2*2*2*2
+console.log(a);
+
+// Before ES7
+let b = Math.pow(2,5);
+console.log(b);
