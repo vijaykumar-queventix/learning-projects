@@ -1,23 +1,25 @@
-// array destructing
+// object destructing
 
-const myproglang = ['js','php','java','python','c'];
+const bioData = {
+    name : "demo",
+    age : 20,
+    degree : 'Msc',
+    hobbies :{
+        first : 'playing',
+        second : 'learning'
+    }
+}
 
-// ES5
+let{name, age, degree} = bioData;       // variable can be same as in object
 
-// var top1 = myproglang[0];    
-// var top2 = myproglang[1];
-// var top3 = myproglang[2];
-// var top4 = myproglang[3];
+let{name:myname, age:myage} = bioData   // here we can change variable names seprated by :
 
-// console.log(top1);
-// console.log(top2);
-// console.log(top3);
+let {first, second} = bioData.hobbies;     // object from object    
 
-// Es6
+console.log(`Hi my name is ${name}, My age is ${age}, And my highest qualification is ${degree}`);
+console.log(`Hi my name is ${myname}, My age is ${myage}, And my highest qualification is ${degree}`);
+console.log(name);
+console.log(age);
 
-let [top1, top2, top3, top4] = myproglang ;             // assigns the array values to variable respectively in one line
-let [top5,,,top6] = myproglang ;                        // top5's index in array is [0] and top6's index in array is [4] bcz of ,,,
-console.log(top1);
-console.log(top2);
-console.log(top3);
-console.log(top6);
+console.log(first);
+console.log(second);
