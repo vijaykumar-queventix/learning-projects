@@ -1,19 +1,23 @@
-const example=()=>{
-    var name = 'demo'; // can be accessed to nearest function;
-    var name1 = 'demo1';
-          
-    console.log("The string in variable name is : " + name );       // without template string
-    console.log(`The string in variable name is : ${name}`)         // template string example
+// array destructing
 
-    // template string methods
-    console.log(`The string in variable name is : ${name}`.startsWith('d'));     // if the variable string start with 'd' returns true otherwise false
-    console.log(`The string in variable name is : ${name}`.endsWith('o'));      // if the variable string ends with 'o' returns true otherwise false
-    console.log(`The string in variable name is : ${name}`.includes('em'));       // if the variable string includes  'e' returns true otherwise false
-    console.log(`The string in variable name is : ${name} `.repeat(5));           // it will repeat the string 5 times   
-    //  console.log(name).startsWith('d');
+const myproglang = ['js','php','java','python','c'];
 
-    console.log(name);
+// ES5
 
-   
-}
-example();
+// var top1 = myproglang[0];    
+// var top2 = myproglang[1];
+// var top3 = myproglang[2];
+// var top4 = myproglang[3];
+
+// console.log(top1);
+// console.log(top2);
+// console.log(top3);
+
+// Es6
+
+let [top1, top2, top3, top4] = myproglang ;             // assigns the array values to variable respectively in one line
+let [top5,,,top6] = myproglang ;                        // top5's index in array is [0] and top6's index in array is [4] bcz of ,,,
+console.log(top1);
+console.log(top2);
+console.log(top3);
+console.log(top6);
