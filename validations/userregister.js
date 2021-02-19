@@ -2,8 +2,12 @@ const { check, validationResult } = require('express-validator')
 
 const userValidationRules = () => {
   return [
+
+    check('firstname').toUpperCase(),
+    check('lastname').toUpperCase(),
+    check('phone_number').isLength(10).optional(),
     // username must be an email
-    check('name', 'Name must Be an in email formate').isEmail(),
+    check('email', 'Name must Be an in email formate').isEmail(),
     // password must be at least 5 chars long
     check('password', 'password length is less than 5').isLength({ min: 5 }),
   ]
