@@ -6,14 +6,15 @@ const mongoose = require('mongoose');
 const userroutes = require('./routes/usersroutes')
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('connect-flash');  
-const users = require('./model/userschema')
+const flash = require('connect-flash');
+const users = require('./model/userschema');
 
 // defining port
 const port = process.env.PORT || 3000;
 
 // connecting to db
-const {dbConnection} = require('./db');
+const { dbConnection } = require('./db');
+const { pathToFileURL } = require('url');
 dbConnection();
 
 // parse application/x-www-form-urlencoded
@@ -23,14 +24,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Express session
-app.use(session({ 
-    secret:process.env.SESSION_SCRT_KEY, 
-    saveUninitialized: true, 
+app.use(session({
+    secret: process.env.SESSION_SCRT_KEY,
+    saveUninitialized: true,
     resave: true
-})); 
+}));
 
 app.use(flash());
 
+// Setup Static Path
+app.use(express.static("public"));
 
 app.use('/', userroutes);
 

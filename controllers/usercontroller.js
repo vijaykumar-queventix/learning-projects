@@ -1,9 +1,15 @@
 const usermodel = require('../model/userschema');
+const uploadModel = require('../model/uploadSchema');
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
+const { findByIdAndUpdate } = require('../model/userschema');
+
+const multer = require('multer');
+
+const path = require('path');
 
 exports.register_get = (req, res) => {
     req.flash('message', 'Success!!');      // sending a flash message while redirecting
@@ -17,8 +23,8 @@ exports.login_get = (req, res) => {
 
 exports.dashboard_get = (req, res) => {
     res.status(200).json({
-       'statusCode' : 200,
-       'message' : 'this is dashboard page'
+        'statusCode': 200,
+        'message': 'this is dashboard page'
     })
 }
 
@@ -79,7 +85,6 @@ exports.login_post = async (req, res) => {
     let loginEmail = req.body.email;
     let loginPassword = req.body.password;
 
-
     // checking user existence
     let validuser = await usermodel.findOne({ email: loginEmail });
     if (!validuser)
@@ -97,32 +102,112 @@ exports.login_post = async (req, res) => {
         });
 
     // Generating token for access_token update
-    let token = await jwt.sign({ email: validuser.email, phone_number: validuser.phone_number }, process.env.JWT_SCRT_KEY)
+    let token = jwt.sign({ email: validuser.email }, process.env.JWT_SCRT_KEY)
 
 
     // updating access_token, last_login and status
-    try {
-        await validuser.updateOne({
-            status : 1,
-            access_token: token,
-            last_login : Date.now()
-        }, { new: true })
-    } catch (error) {
-        console.log(error);
-    }
+    let updatedUser = await validuser.updateOne({
+        status: 1,
+        access_token: token,
+        last_login: Date.now()
+    }, { new: true })
 
+    // finding User data to send in response
+    let responseData = await usermodel.findOne({ email: loginEmail });
 
     return res.status(200).send({
         'status': 200,
         'message': 'user logged in ',
-        'data': validuser
+        'data': responseData
     });
 }
 
 
-exports.update_put = (req, res)=>{
+exports.update_put = async (req, res) => {
+    let userId = await req.params.id;
 
+    try {
+        let updatedData = await usermodel.findOneAndUpdate({ $and: [{ _id: userId }, { email: req.body.email }] }, {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            phone_number: req.body.phone_number
+        }, { new: true });
+
+        res.status(200).json({
+            'statusCode': 200,
+            'mesaage': 'user updated successfully',
+            'data': updatedData
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(200).json({
+            'statusCode': 401,
+            'mesaage': 'Erorr While Updating',
+            'Error': error
+        })
+    }
 }
 
 
 
+exports.delete = async (req, res) => {
+    let userId = await req.params.id;
+    console.log(userId)
+
+    try {
+        let deletedUser = await usermodel.findOneAndDelete({
+            $and:
+                [
+                    { _id: userId },
+                    { email: req.body.email }
+                ]
+        });
+        if (deletedUser == null)
+            return res.status(200).json({
+                'statusCode': 401,
+                'mesaage': 'Cannot Find User, Email and Id not matched',
+                'User': deletedUser
+            });
+
+
+        res.status(200).json({
+            'statusCode': 200,
+            'mesaage': 'User Deleted Successfully',
+            'Deleted User': deletedUser
+        })
+    } catch (error) {
+        res.status(200).json({
+            'statusCode': 401,
+            'mesaage': 'Erorr While Deleting',
+            'Error': error
+        })
+    }
+}
+
+
+//upload post api
+
+exports.upload_post = async (req, res, next) => {
+    //console.log(req.file);
+    let filepath = req.file.path;
+    if (!req.file) {
+        return res.status(200).json({
+            'statusCode': 401,
+            'mesaage': 'File Not Found'
+        });
+        
+    }
+
+    let image = new uploadModel({
+        imagename: filepath
+    })
+
+    let response = await image.save();
+    res.status(200).json({
+        'statuCode': 200,
+        'message': 'Image uploaded successfully'
+    })
+
+    //res.json({ fileUrl: 'http://192.168.0.7:3000/images/' + req.file.filename });
+    //res.send('succuess')
+}

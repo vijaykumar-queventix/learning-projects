@@ -3,8 +3,8 @@ const { check, validationResult } = require('express-validator')
 const userValidationRules = () => {
   return [
 
-    check('firstname').toUpperCase(),
-    check('lastname').toUpperCase(),
+    check('firstname'),
+    check('lastname'),
     check('phone_number').isLength(10).optional(),
     // username must be an email
     check('email', 'Name must Be an in email formate').isEmail(),
