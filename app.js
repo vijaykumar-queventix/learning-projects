@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const users = require('./model/userschema');
+var CronJob = require('cron').CronJob;
 
 // defining port
 const port = process.env.PORT || 3000;
@@ -34,6 +35,14 @@ app.use(flash());
 
 // Setup Static Path
 app.use(express.static("public"));
+
+let job = new CronJob ('*  * * * * *', ()=>{
+    console.log('you will see a msg every sencond');
+});
+
+job.start();
+//job.stop();
+
 
 app.use('/', userroutes);
 
